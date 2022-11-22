@@ -1,9 +1,8 @@
 # SinFusion: Training Diffusion Models on a Single Image or Video
 
-This is the repository that contains source code for the SinFusion Website.
+This is the repository that contains source code for the [SinFusion Website](https://yanivnik.github.io/sinfusion/).
 
-The code will be released soon.
-For any questions, please contact yaniv.nikankin@weizmann.ac.il.
+The code itself will be released soon.
 
 # Website License
 This template was forked from https://github.com/nerfies/nerfies.github.io
