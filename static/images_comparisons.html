@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="SinFusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SinFusion: Training Diffusion Models on a Single Image or Video</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+</head>
+<body>
+
+    <script type="text/JavaScript">
+	
+<!--
+function MM_preloadImages() { //v3.0
+ var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+  var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+  if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+ var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+  d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+ if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+ for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+ if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+ var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+ if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+    </script>
+
+<!-- Top. -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SinFusion: Training Diffusion Models on a Single Image or Video</h1>
+					<h2 class="title is-2 publication-title">Supplementary Material</h2>
+
+          <div class="column has-text-centered">
+              <span class="link-block"><a href="../index.html" class="external-link button is-normal is-rounded is-dark">Back to Main</a></span>
+              <br/>
+              <span class="title is-3">In This Page:</span>
+				<br/>
+                <span class="link-block"><a href="#comparisons" class="external-link button is-normal is-rounded is-dark">Diverse Generation<br/>Qualitative Comparison</a></span>
+                <span class="link-block"><a href="#retargeting" class="external-link button is-normal is-rounded is-dark">Retargeting<br/>Examples</a></span>
+                <br/>
+          </div>
+					
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero">
+  <div class="hero-body">
+		<div class="container is-full-width">	
+        <h2 class="title is-3" id="comparisons">Qualitative Comparison to other single-image generative methods</h2>
+        </div>
+  </div>
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-justified">
+				<div class="columns is-centered">										
+					<div class="column has-text-centered has-text-weight-bold">
+								<table style="font-weight: bold; font-size: 1em; border-spacing:1em;">
+                                
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <font size="5" font color="red">Single Source Image</font><br/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <font size="5"><u><b>SinFusion (Ours)</b></u></font><br/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <font size="5"><u><b>SinGAN [1]</b></u></font><br/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <font size="5"><u><b>GPNN [2]</b></u></font><br/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s12.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s12_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s12_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s12_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s8.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s8_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s8_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s8_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p7.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p7_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p7_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p7_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p8.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p8_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p8_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p8_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p13.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p13_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p13_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p13_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p28.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p28_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p28_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p28_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p36.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p36_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p36_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p36_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p44.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p44_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p44_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p44_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p50.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p50_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p50_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/p50_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s1.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s1_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s1_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s1_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s3.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s3_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s3_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s3_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s4.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s4_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s4_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s4_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s6.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s6_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s6_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s6_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s7.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s7_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s7_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s7_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                               
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s9.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s9_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s9_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s9_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s11.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s11_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s11_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s11_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                               
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s15.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s15_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s15_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s15_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s16.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s16_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s16_singan.gif" border="none" alt="SinGAN image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="../images/s16_gpnn.gif" border="none" alt="GPNN image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                
+                                </table>
+					</div>				
+                </div>
+    </div>
+  </div>
+</section>
+
+<br/>
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+					</div>
+				</div>
+                
+                
+<section class="hero">
+  <div class="hero-body">
+		<div class="container is-full-width">	
+        <h2 class="title is-3" id="retargeting">Examples of image retargeting </h2>
+        </div>
+  </div>
+</section>
+                
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-justified">
+				<div class="columns is-centered">										
+					<div class="column has-text-centered has-text-weight-bold">
+								<table style="font-weight: bold; font-size: 1em; border-spacing:1em;">
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                          <font size="5"><u><b>Source Image</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/dolphins.jpg" alt="Source Image"/>	
+                                    </td>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                           <font size="5"><u><b>Retargeted Examples</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/dolphins_retarget0.png"/>
+                                        <img src="../images/retargeting/dolphins_retarget1.png"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                          <font size="5"><u><b>Source Image</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/penguins.png" alt="Source Image"/>	
+                                    </td>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                           <font size="5"><u><b>Retargeted Examples</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/penguins_retarget0.png"/>
+                                        <img src="../images/retargeting/penguins_retarget1.png"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                          <font size="5"><u><b>Source Image</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/arch.jpg" alt="Source Image"/>	
+                                    </td>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                           <font size="5"><u><b>Retargeted Examples</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/arch_retarget0.png"/>
+                                        <img src="../images/retargeting/arch_retarget1.png"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                          <font size="5"><u><b>Source Image</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/cows.png" alt="Source Image"/>	
+                                    </td>
+                                    <td rowspan="1" width="40%" valign="top">
+                                        <center>
+                                           <font size="5"><u><b>Retargeted Examples</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/cows_retarget0.png"/>
+                                        <img src="../images/retargeting/cows_retarget1.png"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                          <font size="5"><u><b>Source Image</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/neighbourhood.png" alt="Source Image"/>	
+                                    </td>
+                                    <td rowspan="1" width="20%" valign="top">
+                                        <center>
+                                           <font size="5"><u><b>Retargeted Examples</b><br/></u></b></font>
+                                        <center/>
+                                        <img src="../images/retargeting/neighbourhood_retarget0.png"/>
+                                        <img src="../images/retargeting/neighbourhood_retarget1.png"/>
+                                    </td>
+                                </tr>
+                                
+                                </table>
+                    </div>
+                </div>
+    </div>
+  </div>
+</section>
+                                    
+                
+                
+<br/>
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+					</div>
+				</div>
+                
+
+
+<font size="4">
+<br/>
+<hr />
+<b>Relevant references:</b><br/>
+<b>[1]</b> Shaham, T. R., Dekel, T., & Michaeli, T. (2019). Singan: Learning a generative model from a single natural image. In Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 4570-4580).‏‏<br/>
+<b>[2]</b> Granot, N., Feinstein, B., Shocher, A., Bagon, S., & Irani, M. (2022). Drop the gan: In defense of patches nearest neighbors as single image generative models. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 13460-13469).‏‏‏<br/>
+<hr />
+
+
+
+</body>
+</html>

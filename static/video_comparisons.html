@@ -1,0 +1,4494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="SinFusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SinFusion: Training Diffusion Models on a Single Image or Video</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+</head>
+<body>
+
+
+<!-- Top. -->
+<section class="hero" id="top">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SinFusion: Training Diffusion Models on a Single Image or Video</h1>
+					<h2 class="title is-2 publication-title">Supplementary Material</h2>
+					<div class="content has-text-centered is-size-4">
+						This page contains many videos, please give it a minute to load
+						<br/>
+						<span style="color: red; font-weight: bold;"> If a video does not appear - please Refresh (F5) </span>
+					</div>
+
+          <div class="column has-text-centered">
+              <span class="link-block"><a href="../index.html" class="external-link button is-normal is-rounded is-dark">Back to Main Page</a></span>
+						<br/>
+						<span class="link-block"><a href="#hpvaegan" class="external-link button is-normal is-rounded is-dark">HP-VAE-GAN [1]<br/>Dataset</a></span>
+						<span class="link-block"><a href="#singangif" class="external-link button is-normal is-rounded is-dark">SinGAN-GIF [2]<br/>Dataset</a></span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="hero is-light">
+  <div class="hero-body">
+		<div class="container is-full-width is-size-4">
+
+		<h2 class="title is-3" id="overview">Overview</h2>	
+		<div class="content">
+		<u>HP-VAE-GAN [1] comparison</u>
+        <ul>
+            <li>We compare to results published by HP-VAE-GAN [1] and by VGPNN [3]</li>
+            <li>Comparison is done on 10 videos, 144x256 resolution, supplied by HP-VAE-GAN in their results.</li>
+            <li><b>Note:</b> Due to runtime limitations, HP-VAE-GAN only trained on 13 frames from the video.</br> 
+            We train on the full videos (between 80-400 frames for each video) as our method can train on long videos without a large increase in runtime.</li>
+        </ul>
+        <br/>
+		<u>SinGAN-GIF [2]</u>
+        <ul>
+            <li>We compare to results published by SinGAN-GIF [2] and by VGPNN [3]</li>
+            <li>Comparison is done on 5 videos (each consisting of 7-15 frames), supplied by SinGAN-GIF in their results. No code is available, thus no further comparison can be made.</li>
+        </ul>
+		</div>
+
+	</div>
+	</div>
+</section>
+
+
+
+
+
+
+<div id="hpvaegan" style="font-weight: normal; font-size: 2em;">
+    <div style="text-align: center; border-style: solid; border-color: black">
+        Comparison to <b>HP-VAE-GAN [1], VGPNN [3]</b> 
+				<span class="link-block"> <a href="#top" class="external-link button is-normal is-rounded is-dark"> Back to Top</a></span>
+				<span class="link-block"> <a href="../index.html" class="external-link button is-normal is-rounded is-dark"> Back to Main Page</a></span>
+    </div>
+</div>
+
+<table style="width:80%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+    
+<tr>
+	<td class="box_all_comparisons">
+		<span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+		<video class="vid_all_comparisons_gt" loop autoplay muted>
+			<source src="../vids/comparisons/hpvaegan/air_ballons_cut_gt.mp4" type='video/mp4'>
+		</video>
+	</td>
+	<td>
+	   <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+	   <video class="vid_all_comparisons_gt" loop autoplay muted>
+		 <source src="../vids/comparisons/hpvaegan/air_ballons_cut_long_gt.mp4" type='video/mp4'>
+	   </video>
+	</td>
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_balloons_cut_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/air_ballons_cut_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr class="bordered"></tr>
+		
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+        </td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/avengers1_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/avengers1_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/blueangels2_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/blueangels2_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/fish_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/fish_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr class="bordered"></tr>
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/flamingo_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/flamingo_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/lionking1_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking1_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr class="bordered"></tr>
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/lionking4_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking4_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/lionking5_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/lionking5_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr class="bordered"></tr>
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/skydivers_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/skydivers_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video (short):</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+        <td>
+           <span style="font-size:2em"><b>Input Video (long):</b></span><br/>
+           <video class="vid_all_comparisons_gt" loop autoplay muted>
+			 <source src="../vids/comparisons/hpvaegan/starwars1_long_gt.mp4" type='video/mp4'>
+		   </video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            <video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_sinfusion9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>HP-VAE-GAN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_hpvaegan9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn6.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn7.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn8.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/hpvaegan/starwars1_vgpnn9.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+</table>
+
+
+<!-- <hr/> -->
+<!-- <h1><div style="text-align:center"><span class="text"><a href="../index.html">Back to main page</a> </span></div></h1> -->
+<!-- <hr/> -->
+<br/>
+<br/>
+<br/>
+
+
+<div id="singangif" style="font-weight: normal; font-size: 2em;">
+    <div style="text-align: center; border-style: solid; border-color: black">
+        Comparison to SinGAN-GIF [2], VGPNN [3]
+				<!-- <br/> -->
+				<span class="link-block"> <a href="#top" class="external-link button is-normal is-rounded is-dark"> Back to Top</a></span>
+				<span class="link-block"> <a href="../index.html" class="external-link button is-normal is-rounded is-dark"> Back to Main Page</a></span>
+    </div>
+</div>
+<table style="width:80%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+  
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video:</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_gt.mp4" type='video/mp4'>
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinGAN-GIF:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_singangif5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/cliff_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+  
+	
+	
+<tr class="bordered"></tr>
+
+
+	
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video:</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this vide
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinGAN-GIF:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_singangif5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/birds_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video:</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this vide
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinGAN-GIF:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_singangif5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/waterfall_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video:</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this vide
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinGAN-GIF:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_singangif5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/desert_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr class="bordered"></tr>
+
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            <span style="font-size:2em"><b>Input Video:</b></span><br/>
+			<video class="vid_all_comparisons_gt" loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_gt.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+
+<tr>
+<td><span style="font-size:2em"><b>SinFusion (Ours):</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion2.mp4" type='video/mp4'>
+				you're browser does not support this vide
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_sinfusion5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+<tr>
+<td><span style="font-size:2em"><b>SinGAN-GIF:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_singangif5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+<td><span style="font-size:2em"><b>VGPNN:</b></span><br/></td>
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn0.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn1.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn2.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+<tr>
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn3.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn4.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+
+		<td class="box_all_comparisons">
+            
+			<video  loop autoplay muted>
+				<source src="../vids/comparisons/singangif/seashore_vgpnn5.mp4" type='video/mp4'>
+				you're browser does not support this video
+			</video>
+		</td>
+
+</tr>
+
+
+</table>
+<hr/>
+		<div class="column has-text-centered">
+			<span class="link-block"> <a href="#top" class="external-link button is-normal is-rounded is-dark"> Back to Top</a></span>
+			<span class="link-block"> <a href="../index.html" class="external-link button is-normal is-rounded is-dark"> Back to Main Page</a></span>
+		</div>
+
+<font size="4">
+<br/>
+<hr />
+<b>Relevant references:</b><br/>
+<b>[1]</b> ‏Gur, S., Benaim, S., & Wolf, L. (2020). Hierarchical patch vae-gan: Generating diverse videos from a single sample. Advances in Neural Information Processing Systems, 33, 16761-16772.‏ <br/>
+<b>[2]</b>Arora, R., & Lee, Y. J. (2021). Singan-gif: Learning a generative video model from a single gif. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (pp. 1310-1319).‏ ‏<br/>
+<b>[3]</b> Haim, N., Feinstein, B., Granot, N., Shocher, A., Bagon, S., Dekel, T., & Irani, M. (2022). Diverse Video Generation from a Single Video. arXiv preprint arXiv:2205.05725.‏<br/>
+<hr />
+
+</body>

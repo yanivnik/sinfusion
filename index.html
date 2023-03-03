@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EYH468MLYT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-EYH468MLYT');
+  </script>
+  <meta charset="utf-8">
+  <meta name="keywords" content="SinFusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SinFusion: Training Diffusion Models on a Single Image or Video</title>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<!-- Top. -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SinFusion: Training Diffusion Models on a Single Image or Video</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://github.com/yanivnik/">Yaniv Nikankin*</a>,
+			</span>
+            <span class="author-block">
+              <a href="https://nivha.github.io/">Niv Haim*</a>,
+			</span>
+            <span class="author-block">
+              <a href="https://www.weizmann.ac.il/math/irani/">Michal Irani</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Weizmann Institute of Science, Rehovot, Israel</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">* Equal contribution</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./sinfusion.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2211.11743"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <!--a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a-->
+                  <div class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code - coming soon</span>
+                  </div>
+              </span>
+	      
+	      <span class="link-block">
+                <a href="./supplementary.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-archive"></i>
+                  </span>
+                  <span>Supplementary</span>
+                  </a>
+              </span>
+
+            </div>
+						
+						<div class="content has-text-centered">
+							(This page contains many videos, please give it a minute to load)
+						</div>
+
+						
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+					<p>
+						Diffusion models exhibited tremendous progress in image and video generation, exceeding GANs in quality and diversity. However, they are usually trained on very large datasets and are not naturally adapted to manipulate a given input image or video. In this paper we show how this can be resolved by training a diffusion model on a single input image or video. Our image/video-specific diffusion model (SinFusion) learns the appearance and dynamics of the single image or video, while utilizing the conditioning capabilities of diffusion models. It can solve a wide array of image/video-specific manipulation tasks. In particular, our model can learn from few frames the motion and dynamics of a single input video. It can then generate diverse new video samples of the same dynamic scene; extrapolate short videos into long ones (both forward and backward in time) and perform video upsampling. When trained on a single image, our model shows comparable performance and capabilities to previous single-image models in various image manipulation tasks.
+					</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Generation -->
+<section class="hero is-light is-small" id="generation">
+  <div class="hero-body">
+  
+    <div class="container has-text-justified">
+				<h2 class="title is-3">Diverse Generation from a Single Video</h2>
+				<div class="content has-text-justified is-size-4">
+					<span style="color: red;"><b>Input video (top-left)</b></span>
+					<br/>
+					All others are generated.
+				</div>
+
+
+				<div id="results-carousel" class="carousel results-carousel">
+					
+					
+					<div class="item item-airballoons">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<tr>
+										<td>
+											<video class="vid_generation_gt"  id="airbaloons_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airbaloons_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airbaloons_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airbaloons_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="airbaloons_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airbaloons_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airbaloons_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airbaloons_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/air_balloons_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+
+					<div class="item item-fish">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<tr>
+										<td>
+											<video class="vid_generation_gt"  id="fish_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="fish_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="fish_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="fish_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="fish_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="fish_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="fish_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="fish_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/fish_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+
+					<div class="item item-boat_race">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<tr>
+										<td>
+											<video class="vid_generation_gt"  id="boat_race_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="boat_race_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="boat_race_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="boat_race_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="boat_race_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="boat_race_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="boat_race_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out5.mp4" type="video/mp4">
+											</video>
+										</td><td>
+											<video class="vid_generation"  id="boat_race_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/boat_race_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+
+                    
+					
+					<div class="item item-ants">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<tr>
+										<td>
+											<video class="vid_generation_gt"  id="ants_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="ants_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="ants_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="ants_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="ants_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="ants_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="ants_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="ants_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/ants_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+					
+					
+					<div class="item item-airplanes">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airplanes_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="airplanes_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airplanes_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="airplanes_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airplanes_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airplanes_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="airplanes_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/airplanes_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+ 
+                     <div class="item item-penguins">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="penguins_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="penguins_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="penguins_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="penguins_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="penguins_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="penguins_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="penguins_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/penguins_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+                   
+
+ 
+                    <div class="item item-bees">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="bees_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="bees_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="bees_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="bees_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="bees_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="bees_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="bees_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/bees_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+                    
+                    
+                    <div class="item item-lava">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="lava_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="lava_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="lava_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="lava_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="lava_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="lava_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="lava_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/lava_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+     
+                    <div class="item item-birds">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="birds_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="birds_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="birds_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="birds_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="birds_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="birds_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="birds_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/birds_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>
+
+	 
+                    <div class="item item-crabs">
+								<table class="carousel-table" style="width:100%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+									<!-- <tr><td>Input Video</td><td></td><td></td></tr> -->
+									<tr>
+										<td>
+											<video class="vid_generation_gt" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_input.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="crabs_0" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out0.mp4" type="video/mp4">
+											</video>
+										</td>
+										<td>
+											<video class="vid_generation"  id="crabs_1" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out1.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="crabs_2" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out2.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<video class="vid_generation"  id="crabs_3" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out3.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="crabs_4" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out4.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="crabs_5" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out5.mp4" type="video/mp4">
+											</video>
+										</td>
+                                        <td>
+											<video class="vid_generation"  id="crabs_6" autoplay controls muted loop height=100>
+												<source src="./vids/generation/crabs_out6.mp4" type="video/mp4">
+											</video>
+										</td>
+									</tr>
+								</table>
+					</div>		
+                </div>
+				
+    </div>
+  </div>
+</section>
+
+	
+		
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Applications. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+
+				<br/>
+                
+                
+				<!-- Extrapolation. -->
+				<h2 class="title is-3" id="extrapolation">Video Extrapolation - Forward in time</h2>
+				<div class="columns is-justified">
+					<div class="column is-12 is-size-4">
+						<span style="color: red;"><b>Input Frames (RED)</b></span> <br/>
+						<span style="color: green;"><b>Extrapolated Frames (GREEN)</b></span>
+					</div>
+				</div>
+				<div class="columns is-justified">
+					<div class="column is-12 is-size-5">
+                    (The input video, followed by an extrapolation from the last frame of the input video. Note that the video continues exactly where the input finishes in a realistic way)
+					</div>
+				</div>
+
+
+				<div class="container has-text-centered">
+				
+					<div id="tempret-carousel" class="carousel tempret-carousel">
+						<div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/tornado_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+						<div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/boat_race_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+                        <div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/ants2_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+                        <div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/pool_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+                        <div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/ants_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+                        <div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/extrapolation/walking_scene_combined.mp4" type="video/mp4">
+									</video>
+						</div>
+                    </div>
+				</div>
+
+	
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+						<br/>
+					</div>
+				</div>
+
+	
+				<!--/ Extrapolation -->
+                
+                <!-- Backwards Extrapolation. -->
+				<h2 class="title is-3" id="bw-extrapolation">Video Extrapolation - Backward in time</h2>
+				<div class="columns is-justified">
+					<div class="column is-12 is-size-4">
+						<span style="color: red;"><b>Input Frames (RED)</b></span> <br/>
+						<span style="color: green;"><b>Extrapolated Frames (GREEN)</b></span>
+					</div>
+				</div>
+				<div class="columns is-justified">
+					<div class="column is-12 is-size-5">
+                    The input video plays in reverse, starting from the last frame to the first frame. It is followed by a backwards extrapolation from the first frame of the input video, back to the past.<br/>
+                    Note how backward extrapolations of <u> the same video</u> yield different outputs due to the inherent stochasticity of diffusion models.
+					</div>
+				</div>
+                
+                <video autoplay controls muted loop height=100>
+				<source src="./vids/extrapolation/air_balloons_backwards_combined_5videos_together.mp4" type="video/mp4">
+			  </video>
+              
+              <video autoplay controls muted loop height=100>
+				<source src="./vids/extrapolation/tornado_backwards_combined_5videos_together.mp4" type="video/mp4">
+			  </video>
+			  
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+						<br/>
+					</div>
+				</div>
+	
+				<!--/ Backwards Extrapolation -->
+				
+				<br/>
+
+        <!-- Spatial Retargeting. -->
+        <h2 class="title is-3"  id="retargeting">Spatial Video Retargeting</h2>
+				
+				
+				<div class="columns is-justified">
+					<div class="column is-10 is-size-5">
+						<span style="color: orange;"><b>Input video (top-left)</b></span>
+						<br/>
+						The rest are retargeted to different spatial shapes.
+					</div>
+				</div>
+
+				<div class="container has-text-centered">
+				
+					<div id="spatret-carousel" class="carousel spatret-carousel">
+						<div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/retargeting/penguins.mp4" type="video/mp4">
+									</video>
+						</div>
+						<div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/retargeting/air_balloons.mp4" type="video/mp4">
+									</video>
+						</div>
+						<div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/retargeting/fish.mp4" type="video/mp4">
+									</video>
+						</div>
+                        <div class="item">
+									<video autoplay controls muted loop height=100>
+										<source src="./vids/retargeting/pool.mp4" type="video/mp4">
+									</video>
+						</div>
+					</div>
+				</div>
+				<!--/ Spatial Retargeting. -->
+
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+						<br/>
+					</div>
+				</div>
+
+
+        <br><br/>
+	
+	       <!-- Temporal upsampling. -->
+       <h2 class="title is-3" id="interpolation">Temporal Upsampling</h2>
+				
+				<div class="columns is-justified">
+					<div class="column is-12 is-size-5">
+						<p> 
+							First row <span style="color: red;"><b>Input video</b></span><br/>
+                            Second row <span style="color: grey;"><b>Linear interpolation</b></span><br/>
+                            Third row: <span style="color: green;"><b>SinFusion (Ours) interpolation</b></span><br/>
+                            Fourth: <span style="color: blue;"><b>RIFE [1] interpolation</b></span><br/>
+                            Note that :
+                            <li>Our (SinFusion) DDPM frame interpolation framework produces comparable results to RIFE [1] (a dedicated recent SOTA frame-upsampling method).</li>
+                            <li><b><u>On the fan video (left), SinFusion is able to correctly undo the motion-aliasing</u></b>, whereas RIFE is not. The fan, which rotates faster and faster <b>clockwise</b>, appears at some point tob e falsely rotating <b>counter-clockwise</b> (due to the low framerate of the input video). By training SinFusion on this specific video, it automatically learns (from the slower parts of the video) how to correctly undo the motion aliasing when increasing framerate in this scene.
+						</p>
+					</div>
+				</div>
+				
+        <div class="columns is-vcentered">		
+                    <table class="container has-text-centered" style="width:120%; font-weight: bold; font-size: 1em; border-spacing:1%;">
+					  <tr>
+                      <td>
+                          <video autoplay controls muted loop height=100>
+							<source src="./vids/interpolation/star_fan_combined.mp4" type="video/mp4">
+						  </video>
+                        </td>
+                        <td>
+                          <video autoplay controls muted loop height=100>
+							<source src="./vids/interpolation/hula_hoop_combined.mp4" type="video/mp4">
+						  </video>
+                        </td>
+                        <td>
+                          <video autoplay controls muted loop height=100>
+							<source src="./vids/interpolation/billiard_combined.mp4" type="video/mp4">
+						  </video>
+                        </td>
+                      </tr>
+                    </table>				
+        </div>
+				<!--/ Temporal upsampling. -->
+                
+                <div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+						<br/>
+					</div>
+				</div>
+                
+                <h2 class="title is-3" id="image-generation">Diverse Image Generation</h2>
+        <div class="columns is-centered">										
+		   <div class="column has-text-centered has-text-weight-bold">
+			  <table style="font-weight: bold; font-size: 1em; border-spacing:1em;">
+                <tr>
+                  <td rowspan="1" width="20%" valign="top">
+                    <center><font size="5">Single Input Image</font><br/></center>
+                  </td>
+                  <td rowspan="1" width="20%" valign="top">
+                    <center><font size="5">Diverse Generated Images</font><br/></center>
+                  </td>
+                  <td rowspan="1" width="20%" valign="top">
+                    <center><font size="5">Single Input Image</font><br/></center>
+                  </td>
+                  <td rowspan="1" width="20%" valign="top">
+                    <center><font size="5">Diverse Generated Images</font><br/></center>
+                  </td>
+                </tr>
+                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p2.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p2_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p24.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p24_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/dolphins.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/dolphins.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/penguins.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/penguins.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p41.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p41_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s13.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s13_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s12.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s12_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s8.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s8_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p7.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p7_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p28.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/p28_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s3.jpg" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s3_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                   <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s4.png" border="none" alt="Input image" width="300" height="250" />
+                                    </center></td>
+                                    <td rowspan="1" width="20%" valign="top"><center>
+                                        <img src="./images/s4_sinfusion.gif" border="none" alt="SinFusion image" width="300" height="250"/>
+                                    </center></td>
+                                </tr>
+              </table>
+           </div>
+        </div>
+
+
+				<div class="columns is-centered">
+					<div class="column has-text-centered has-text-weight-bold">
+						<a href="#top" class="external-link button is-medium is-warning">Back to Top</a>
+						<br/>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{nikankin2022sinfusion,
+  title={SinFusion: Training Diffusion Models on a Single Image or Video},
+  author={Nikankin, Yaniv and Haim, Niv and Irani, Michal},
+  journal={arXiv preprint arXiv:2211.11743},
+  year={2022}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://github.com/yanivnik/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8 has-text-centered">
+        <div class="content">
+          <p>
+            This website is forked from 
+            			<a href="https://nivha.github.io/vgpnn/">VGPNN</a> and 
+						<a href="https://nerfies.github.io/">Nerfies</a> (<a href="https://github.com/nerfies/nerfies.github.io">source code</a>)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+</html>
