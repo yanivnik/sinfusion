@@ -2,7 +2,7 @@
 
 This is the repository that contains source code for the [SinFusion Website](https://yanivnik.github.io/sinfusion/).
 
-The code itself will be released soon.
+The code itself can be found at [this repo](https://github.com/yanivnik/sinfusion-code).
 
 If you find SinFusion useful for your work please cite:
 ```
