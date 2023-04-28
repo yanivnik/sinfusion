@@ -1,4 +1,5 @@
-# SinFusion: Training Diffusion Models on a Single Image or Video
+# [ICML 2023] SinFusion: Training Diffusion Models on a Single Image or Video
+[![arxiv](https://img.shields.io/badge/arxiv-2211.11743-brightgreen)](https://arxiv.org/abs/2211.11743) [![Conference](https://img.shields.io/badge/ICML-2023-blueviolet)]()
 
 This is the repository that contains source code for the [SinFusion Website](https://yanivnik.github.io/sinfusion/).
 
